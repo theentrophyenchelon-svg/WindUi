@@ -1,11 +1,11 @@
 --[[
-	WindUI GodTier Plus
-	Additive premium extension layer for WindUI.
+	Sentry Hub Library
+	Premium extension layer for the WindUI runtime.
 
 	Usage:
 	local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/dist/main.lua"))()
-	local GodTierPlus = loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/dist/godtier_plus.lua"))()
-	GodTierPlus(WindUI)
+	local InstallSentryHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/dist/godtier_plus.lua"))()
+	InstallSentryHub(WindUI)
 ]]
 
 return function(WindUI)
@@ -13,8 +13,8 @@ return function(WindUI)
 		return nil
 	end
 
-	if WindUI.GodTierPlus and WindUI.GodTierPlus.__installed then
-		return WindUI.GodTierPlus
+	if WindUI.SentryHub and WindUI.SentryHub.__installed then
+		return WindUI.SentryHub
 	end
 
 	local TweenService = game:GetService("TweenService")
@@ -24,7 +24,8 @@ return function(WindUI)
 
 	local Plus = {
 		__installed = true,
-		Version = "1.8.0-godtier-plus",
+		Brand = "Sentry Hub Library",
+		Version = "1.8.0-sentry",
 		Profile = "Balanced",
 		Accent = Color3.fromHex("#30FF6A"),
 		Theme = "Aurora",
@@ -48,7 +49,7 @@ return function(WindUI)
 			return result
 		end
 
-		warn("[WindUI GodTier Plus]", result)
+		warn("[Sentry Hub Library]", result)
 		return nil
 	end
 
@@ -73,12 +74,12 @@ return function(WindUI)
 
 		return safeCall(function()
 			return WindUI:Notify({
-				Title = title or kind or "WindUI",
+				Title = title or kind or "Sentry Hub Library",
 				Content = content or "Notification",
 				Desc = content or "Notification",
 				Duration = duration or 3,
 				Color = colors[kind or "Info"],
-				Icon = kind == "Success" and "check" or kind == "Warning" and "triangle-alert" or kind == "Error" and "circle-x" or "sparkles",
+				Icon = kind == "Success" and "check" or kind == "Warning" and "triangle-alert" or kind == "Error" and "circle-x" or "shield-check",
 			})
 		end)
 	end
@@ -121,10 +122,10 @@ return function(WindUI)
 
 	function Plus:CreateWindow(config)
 		local defaults = {
-			Title = "WindUI GodTier",
-			Icon = "sparkles",
-			Author = "Premium Roblox UI Library",
-			Folder = "WindUI-GodTier",
+			Title = "Sentry Hub Library",
+			Icon = "shield-check",
+			Author = "Premium Roblox UI Framework",
+			Folder = "Sentry-Hub-Library",
 			Theme = self.Theme or "Aurora",
 			Size = UDim2.fromOffset(660, 540),
 			Acrylic = true,
@@ -134,7 +135,7 @@ return function(WindUI)
 			HideSearchBar = false,
 			ToggleKey = Enum.KeyCode.RightControl,
 			OpenButton = {
-				Title = "Open WindUI",
+				Title = "Open Sentry",
 				Enabled = true,
 				Draggable = true,
 				OnlyMobile = false,
@@ -151,8 +152,8 @@ return function(WindUI)
 
 			safeCall(function()
 				window:Tag({
-					Title = "GodTier+ " .. self.Version,
-					Icon = "sparkles",
+					Title = "Sentry+ " .. self.Version,
+					Icon = "shield-check",
 					Color = self.Accent,
 					Border = true,
 				})
@@ -171,7 +172,7 @@ return function(WindUI)
 		end
 
 		local gui = Instance.new("ScreenGui")
-		gui.Name = config.Name or "WindUI_GodTier_Loading"
+		gui.Name = config.Name or "SentryHub_Loading"
 		gui.IgnoreGuiInset = true
 		gui.ResetOnSpawn = false
 		gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -213,7 +214,7 @@ return function(WindUI)
 		title.TextXAlignment = Enum.TextXAlignment.Left
 		title.TextColor3 = Color3.fromRGB(255, 255, 255)
 		title.TextTransparency = 1
-		title.Text = config.Title or "WindUI GodTier"
+		title.Text = config.Title or "Sentry Hub Library"
 		title.Parent = card
 
 		local subtitle = Instance.new("TextLabel")
@@ -226,7 +227,7 @@ return function(WindUI)
 		subtitle.TextXAlignment = Enum.TextXAlignment.Left
 		subtitle.TextColor3 = Color3.fromRGB(190, 196, 212)
 		subtitle.TextTransparency = 1
-		subtitle.Text = config.Subtitle or "Loading premium interface layer..."
+		subtitle.Text = config.Subtitle or "Preparing premium interface layer..."
 		subtitle.Parent = card
 
 		local barBack = Instance.new("Frame")
@@ -297,7 +298,7 @@ return function(WindUI)
 		end
 
 		local gui = Instance.new("ScreenGui")
-		gui.Name = config.Name or "WindUI_GodTier_Performance"
+		gui.Name = config.Name or "SentryHub_Performance"
 		gui.ResetOnSpawn = false
 		gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 		gui.Parent = player:WaitForChild("PlayerGui")
@@ -367,14 +368,14 @@ return function(WindUI)
 		end
 
 		safeCall(function()
-			tab:Section({ Title = "GodTier Elements", TextSize = 22, FontWeight = Enum.FontWeight.SemiBold })
+			tab:Section({ Title = "Sentry Elements", TextSize = 22, FontWeight = Enum.FontWeight.SemiBold })
 		end)
 
 		safeCall(function()
 			tab:Button({
 				Title = "Premium Button",
-				Desc = "Runs a premium feedback action.",
-				Icon = "sparkles",
+				Desc = "Runs a refined feedback action.",
+				Icon = "shield-check",
 				Callback = function()
 					notify("Success", "Premium Button", "Button feedback is online.")
 				end,
@@ -434,7 +435,7 @@ return function(WindUI)
 		safeCall(function()
 			tab:Colorpicker({
 				Title = "Accent Color",
-				Desc = "Updates GodTier Plus accent memory.",
+				Desc = "Updates Sentry accent memory.",
 				Default = self.Accent,
 				Callback = function(color)
 					self:SetAccent(color)
@@ -552,13 +553,13 @@ return function(WindUI)
 		end
 
 		safeCall(function()
-			tab:Section({ Title = "About GodTier Plus", TextSize = 24, FontWeight = Enum.FontWeight.SemiBold })
+			tab:Section({ Title = "About Sentry Hub Library", TextSize = 24, FontWeight = Enum.FontWeight.SemiBold })
 		end)
 
 		safeCall(function()
 			tab:Paragraph({
-				Title = "Elite Extension Layer",
-				Desc = "GodTier Plus adds safer defaults, motion profiles, theme studio helpers, loading overlays, performance stats, premium notification helpers, and reusable showcase builders.",
+				Title = "Delicate. Premium. Protective.",
+				Desc = "Sentry Hub Library is a refined Roblox UI framework built for clean interfaces, soft motion, premium visuals, theme systems, loading overlays, and high-quality developer ergonomics.",
 			})
 		end)
 
@@ -600,12 +601,12 @@ return function(WindUI)
 
 		if main then
 			safeCall(function()
-				main:Section({ Title = "WindUI GodTier Plus", TextSize = 24, FontWeight = Enum.FontWeight.SemiBold })
+				main:Section({ Title = "Sentry Hub Library", TextSize = 24, FontWeight = Enum.FontWeight.SemiBold })
 			end)
 			safeCall(function()
 				main:Paragraph({
 					Title = "Premium UI system online",
-					Desc = "A stronger WindUI layer with better defaults, reusable builders, theme tools, motion controls, loading overlays, and performance feedback.",
+					Desc = "A refined UI library layer with strong defaults, reusable builders, theme tools, motion controls, loading overlays, and performance feedback.",
 				})
 			end)
 			safeCall(function()
@@ -614,7 +615,7 @@ return function(WindUI)
 					Desc = "Runs the upgraded notification helper.",
 					Icon = "bell",
 					Callback = function()
-						notify("Success", "GodTier Plus", "The upgraded showcase is running.")
+						notify("Success", "Sentry Hub Library", "The upgraded showcase is running.")
 					end,
 				})
 			end)
@@ -625,10 +626,11 @@ return function(WindUI)
 		self:BuildSettings(settings)
 		self:BuildAbout(about)
 
-		notify("Success", "WindUI GodTier Plus", "Showcase loaded with premium systems.")
+		notify("Success", "Sentry Hub Library", "Showcase loaded with premium systems.")
 		return window
 	end
 
+	WindUI.SentryHub = Plus
 	WindUI.GodTierPlus = Plus
 
 	WindUI.NotifyInfo = function(_, title, content, duration)
@@ -647,25 +649,32 @@ return function(WindUI)
 		return notify("Error", title, content, duration)
 	end
 
-	WindUI.SetGodTierMotionProfile = function(_, profileName)
+	WindUI.SetSentryMotionProfile = function(_, profileName)
 		return Plus:SetMotionProfile(profileName)
 	end
 
-	WindUI.CreateGodTierWindow = function(_, config)
+	WindUI.CreateSentryWindow = function(_, config)
 		return Plus:CreateWindow(config)
 	end
 
-	WindUI.CreateGodTierLoadingOverlay = function(_, config)
+	WindUI.CreateSentryLoadingOverlay = function(_, config)
 		return Plus:CreateLoadingOverlay(config)
 	end
 
-	WindUI.CreateGodTierPerformanceOverlay = function(_, config)
+	WindUI.CreateSentryPerformanceOverlay = function(_, config)
 		return Plus:CreatePerformanceOverlay(config)
 	end
 
-	WindUI.CreateGodTierShowcase = function(_)
+	WindUI.CreateSentryShowcase = function(_)
 		return Plus:BuildShowcase()
 	end
+
+	-- Backward-compatible aliases from the previous GodTier Plus branding.
+	WindUI.SetGodTierMotionProfile = WindUI.SetSentryMotionProfile
+	WindUI.CreateGodTierWindow = WindUI.CreateSentryWindow
+	WindUI.CreateGodTierLoadingOverlay = WindUI.CreateSentryLoadingOverlay
+	WindUI.CreateGodTierPerformanceOverlay = WindUI.CreateSentryPerformanceOverlay
+	WindUI.CreateGodTierShowcase = WindUI.CreateSentryShowcase
 
 	return Plus
 end
