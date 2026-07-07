@@ -1,8 +1,7 @@
 --[[
-    WindUI Example 
+	WindUI GodTier Example Loader
 
-    example moved to main.client.lua
+	This points to this repository's packaged example so users do not accidentally load the upstream project.
 ]]
 
-
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Footagesus/WindUI/refs/heads/main/main.client.lua'))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/main.client.lua"))()
