@@ -25,10 +25,20 @@ if SentryHub then
 		local installProfileViewport = loadstring(game:HttpGet(REPO .. "dist/sentry_profile_viewport.lua"))()
 		installProfileViewport(WindUI, SentryHub)
 	end)
+
+	pcall(function()
+		local installConsolePanel = loadstring(game:HttpGet(REPO .. "dist/sentry_console_panel.lua"))()
+		installConsolePanel(WindUI, SentryHub)
+	end)
 end
 
 if SentryHub and SentryHub.BuildShowcase then
 	SentryHub:BuildShowcase()
+	pcall(function()
+		if SentryHub.StartConsolePanelLoop then
+			SentryHub:StartConsolePanelLoop()
+		end
+	end)
 else
 	local Window = WindUI:CreateWindow({
 		Title = "Sentry Hub Library",
