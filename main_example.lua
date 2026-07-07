@@ -53,7 +53,18 @@ if SentryHub then
 end
 
 if SentryHub and SentryHub.BuildShowcase then
-	SentryHub:BuildShowcase()
+	local Window = SentryHub:BuildShowcase()
+	pcall(function()
+		if Window and SentryHub.BuildActionsTab then
+			local ActionsTab = Window:Tab({
+				Title = "Script Hub",
+				Desc = "Actions",
+				Icon = "scroll-text",
+				Border = true,
+			})
+			SentryHub:BuildActionsTab(ActionsTab)
+		end
+	end)
 	pcall(function()
 		if SentryHub.StartConsolePanelLoop then
 			SentryHub:StartConsolePanelLoop()
