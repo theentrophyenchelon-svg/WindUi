@@ -1,35 +1,58 @@
-# WindUI GodTier Upgrade
+# WindUI GodTier Plus Upgrade
 
-This package was upgraded in-place for a more premium Roblox Luau UI library experience.
+This package has been upgraded into a premium Roblox Luau UI library stack with a base WindUI build plus an additive GodTier Plus extension layer.
 
-## Major upgrades
+## Version
 
-- Premium motion layer: global animation speed, reduced motion, hover/press micro-interactions.
-- Ripple feedback system for buttons, tabs, and element rows.
-- Higher-end window shell: larger radius, refined spacing, glow layer, border stroke, stronger open/close animation.
-- Modern defaults: `NewElements` is now enabled unless explicitly set to `false`.
-- New public APIs: `WindUI:SetAnimationSpeed`, `WindUI:SetReducedMotion`, `WindUI:SetUIScale`, `WindUI:CreateTheme`, `WindUI:UsePreset`.
-- New window APIs: `Window:SetRadius`, `Window:SetPremium`, `Window:Pulse`.
-- New premium themes: `Aurora`, `Obsidian`, `Cyber`, and `Royal`.
+```text
+1.8.0-godtier-plus
+```
 
-## Recommended startup
+## What GodTier Plus adds
+
+- Premium showcase builder: `WindUI:CreateGodTierShowcase()`.
+- Safer premium window creation: `WindUI:CreateGodTierWindow(config)`.
+- Motion profiles: Cinematic, Balanced, Snappy, and Reduced.
+- Loading overlay system with animated card, progress bar, glow stroke, and auto-destroy behavior.
+- Performance overlay with FPS and memory display.
+- Theme Studio helpers for Aurora, Obsidian, Cyber, Royal, Dark, and Light.
+- Premium notification helpers: `NotifyInfo`, `NotifySuccess`, `NotifyWarning`, and `NotifyError`.
+- Reusable builders for Elements, Themes, Settings, and About tabs.
+- Better package metadata for a polished public release.
+
+## Recommended loader
 
 ```lua
-local WindUI = loadstring(game:HttpGet("YOUR_HOSTED_DIST_MAIN_LUA"))()
-WindUI:UsePreset("GodTier")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/main_example.lua"))()
+```
 
-local Window = WindUI:CreateWindow({
-    Title = "Konquest Combat",
-    Icon = "sparkles",
-    Author = "Ultimate UI System",
-    Theme = "Aurora",
-    Size = UDim2.fromOffset(620, 500),
-    Acrylic = true,
-    Premium = true,
-    Glow = true,
-})
+## Manual GodTier Plus install
+
+```lua
+local repo = "https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/"
+
+local WindUI = loadstring(game:HttpGet(repo .. "dist/main.lua"))()
+local InstallGodTierPlus = loadstring(game:HttpGet(repo .. "dist/godtier_plus.lua"))()
+
+local GodTierPlus = InstallGodTierPlus(WindUI)
+GodTierPlus:BuildShowcase()
+```
+
+## New public APIs
+
+```lua
+WindUI:NotifyInfo(title, content, duration)
+WindUI:NotifySuccess(title, content, duration)
+WindUI:NotifyWarning(title, content, duration)
+WindUI:NotifyError(title, content, duration)
+
+WindUI:SetGodTierMotionProfile("Balanced")
+WindUI:CreateGodTierWindow(config)
+WindUI:CreateGodTierLoadingOverlay(config)
+WindUI:CreateGodTierPerformanceOverlay(config)
+WindUI:CreateGodTierShowcase()
 ```
 
 ## Compatibility
 
-Old configs should still work. To force the previous grouped element look, set `NewElements = false` in `CreateWindow`.
+GodTier Plus is additive. It does not replace the base `dist/main.lua` build, and old WindUI configs should continue to work. The extension uses safe `pcall` wrappers around optional APIs so unsupported features fail softly instead of crashing the whole UI.
