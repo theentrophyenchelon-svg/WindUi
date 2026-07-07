@@ -30,6 +30,11 @@ if SentryHub then
 		local installConsolePanel = loadstring(game:HttpGet(REPO .. "dist/sentry_console_panel.lua"))()
 		installConsolePanel(WindUI, SentryHub)
 	end)
+
+	pcall(function()
+		local installCleanFix = loadstring(game:HttpGet(REPO .. "dist/sentry_clean_fix.lua"))()
+		installCleanFix(WindUI, SentryHub)
+	end)
 end
 
 if SentryHub and SentryHub.BuildShowcase then
@@ -38,13 +43,16 @@ if SentryHub and SentryHub.BuildShowcase then
 		if SentryHub.StartConsolePanelLoop then
 			SentryHub:StartConsolePanelLoop()
 		end
+		if SentryHub.StartCleanFixLoop then
+			SentryHub:StartCleanFixLoop()
+		end
 	end)
 else
 	local Window = WindUI:CreateWindow({
 		Title = "Sentry Hub Library",
 		Icon = "shield-check",
 		Author = "Production Roblox UI Framework",
-		Theme = "Aurora",
+		Theme = "Dark",
 		Size = UDim2.fromOffset(700, 560),
 		Acrylic = true,
 		NewElements = true,
