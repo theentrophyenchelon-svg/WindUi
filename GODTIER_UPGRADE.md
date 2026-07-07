@@ -1,24 +1,24 @@
-# WindUI GodTier Plus Upgrade
+# Sentry Hub Library Upgrade
 
-This package has been upgraded into a premium Roblox Luau UI library stack with a base WindUI build plus an additive GodTier Plus extension layer.
+Sentry Hub Library is the polished public-facing identity for this Roblox Luau UI framework. The internal runtime still uses the WindUI object for compatibility, but the visible library branding, showcase UI, loading overlay, notifications, package metadata, and documentation now present as Sentry Hub Library.
 
 ## Version
 
 ```text
-1.8.0-godtier-plus
+1.8.0-sentry
 ```
 
-## What GodTier Plus adds
+## What Sentry adds
 
-- Premium showcase builder: `WindUI:CreateGodTierShowcase()`.
-- Safer premium window creation: `WindUI:CreateGodTierWindow(config)`.
+- Premium showcase builder: `WindUI:CreateSentryShowcase()`.
+- Safer premium window creation: `WindUI:CreateSentryWindow(config)`.
 - Motion profiles: Cinematic, Balanced, Snappy, and Reduced.
 - Loading overlay system with animated card, progress bar, glow stroke, and auto-destroy behavior.
 - Performance overlay with FPS and memory display.
 - Theme Studio helpers for Aurora, Obsidian, Cyber, Royal, Dark, and Light.
 - Premium notification helpers: `NotifyInfo`, `NotifySuccess`, `NotifyWarning`, and `NotifyError`.
 - Reusable builders for Elements, Themes, Settings, and About tabs.
-- Better package metadata for a polished public release.
+- Delicate premium branding focused on clean, controlled, protective UI design.
 
 ## Recommended loader
 
@@ -26,16 +26,16 @@ This package has been upgraded into a premium Roblox Luau UI library stack with 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/main_example.lua"))()
 ```
 
-## Manual GodTier Plus install
+## Manual Sentry install
 
 ```lua
 local repo = "https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/"
 
 local WindUI = loadstring(game:HttpGet(repo .. "dist/main.lua"))()
-local InstallGodTierPlus = loadstring(game:HttpGet(repo .. "dist/godtier_plus.lua"))()
+local InstallSentryHub = loadstring(game:HttpGet(repo .. "dist/godtier_plus.lua"))()
 
-local GodTierPlus = InstallGodTierPlus(WindUI)
-GodTierPlus:BuildShowcase()
+local SentryHub = InstallSentryHub(WindUI)
+SentryHub:BuildShowcase()
 ```
 
 ## New public APIs
@@ -46,13 +46,13 @@ WindUI:NotifySuccess(title, content, duration)
 WindUI:NotifyWarning(title, content, duration)
 WindUI:NotifyError(title, content, duration)
 
-WindUI:SetGodTierMotionProfile("Balanced")
-WindUI:CreateGodTierWindow(config)
-WindUI:CreateGodTierLoadingOverlay(config)
-WindUI:CreateGodTierPerformanceOverlay(config)
-WindUI:CreateGodTierShowcase()
+WindUI:SetSentryMotionProfile("Balanced")
+WindUI:CreateSentryWindow(config)
+WindUI:CreateSentryLoadingOverlay(config)
+WindUI:CreateSentryPerformanceOverlay(config)
+WindUI:CreateSentryShowcase()
 ```
 
 ## Compatibility
 
-GodTier Plus is additive. It does not replace the base `dist/main.lua` build, and old WindUI configs should continue to work. The extension uses safe `pcall` wrappers around optional APIs so unsupported features fail softly instead of crashing the whole UI.
+The Sentry extension is additive. It does not replace the base `dist/main.lua` build, and old WindUI configs should continue to work. Previous GodTier Plus API names remain as aliases so older scripts do not instantly break.
