@@ -1,22 +1,22 @@
 --[[
-	WindUI GodTier Plus Showcase
+	Sentry Hub Library Showcase
 	Run this in a LocalScript or Roblox Studio command bar with HTTP requests enabled.
 ]]
 
 local REPO = "https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/"
 
 local WindUI = loadstring(game:HttpGet(REPO .. "dist/main.lua"))()
-local InstallGodTierPlus = loadstring(game:HttpGet(REPO .. "dist/godtier_plus.lua"))()
+local InstallSentryHub = loadstring(game:HttpGet(REPO .. "dist/godtier_plus.lua"))()
 
-local GodTierPlus = InstallGodTierPlus(WindUI)
+local SentryHub = InstallSentryHub(WindUI)
 
-if GodTierPlus and GodTierPlus.BuildShowcase then
-	GodTierPlus:BuildShowcase()
+if SentryHub and SentryHub.BuildShowcase then
+	SentryHub:BuildShowcase()
 else
 	local Window = WindUI:CreateWindow({
-		Title = "WindUI GodTier",
-		Icon = "sparkles",
-		Author = "Premium Roblox UI Library",
+		Title = "Sentry Hub Library",
+		Icon = "shield-check",
+		Author = "Premium Roblox UI Framework",
 		Theme = "Aurora",
 		Size = UDim2.fromOffset(640, 520),
 		Acrylic = true,
@@ -31,7 +31,7 @@ else
 	})
 
 	MainTab:Paragraph({
-		Title = "WindUI loaded",
-		Desc = "GodTier Plus could not be installed, but the base UI is running.",
+		Title = "Sentry Hub Library loaded",
+		Desc = "The premium UI framework is running. The enhanced extension layer could not be installed, so the base UI fallback loaded instead.",
 	})
 end
