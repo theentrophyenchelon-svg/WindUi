@@ -1,7 +1,8 @@
 --[[
-    WindUI GodTier Example
+    WindUI Example 
 
-    The full example is located in main.client.lua after the source import is completed.
+    example moved to main.client.lua
 ]]
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/main.client.lua"))()
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Footagesus/WindUI/refs/heads/main/main.client.lua'))()

@@ -1,26 +1,17 @@
-# 1.7.0-godtier
-
-## Changelog
-
-- Added premium motion layer.
-- Added ripple feedback system.
-- Added polished GodTier window styling.
-- Added higher-end theme presets.
-- Added public animation and scaling APIs.
-- Added upgraded README branding, live stats, and structured documentation.
-
 # 1.6.64-fix
 
-`1.6.64-fix` is a fixed version of a previously broken release.
+`1.6.64-fix` is a fixed version of [1.6.64 (deleted version, cuz it is broken)](https://github.com/Footagesus/WindUI/blob/8c68c3f221e1f5d9e0d12f53a8919b490aa46ad3/changelog.md)
 
-## Changes
+## Changelog:
 
-- Added `CustomEmptyPage` to `Tab`.
-- Added `TabTitleAlign` to `Tab`.
-- Fixed dropdown width.
-- Added new elements: HStack and VStack.
-- Added glass effect to toggle.
-- Moved toggle click hitbox.
-- Adjusted dialogs and popups.
-- Fixed key system issues.
-- Added minor bug fixes and improvements.
+- Added `CustomEmptyPage` to `Tab`
+- Added `TabTitleAlign` to `Tab` (applies to `ShowTabTitle`)
+- Fix Dropdown Width
+- Added New Elements: HStack & VStack (Group == HStack)
+- Added Glass effect to toggle
+- Moved Toggle Click Hitbox
+- Some changes in Dialog's/Popup's
+- Fixed Key System issues
+- Various minor bug fixes and improvements
+
+-# reupload
