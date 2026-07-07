@@ -20,6 +20,13 @@ else
 	SentryHub = installFallback(WindUI)
 end
 
+if SentryHub then
+	pcall(function()
+		local installProfileViewport = loadstring(game:HttpGet(REPO .. "dist/sentry_profile_viewport.lua"))()
+		installProfileViewport(WindUI, SentryHub)
+	end)
+end
+
 if SentryHub and SentryHub.BuildShowcase then
 	SentryHub:BuildShowcase()
 else
