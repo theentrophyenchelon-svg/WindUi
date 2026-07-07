@@ -1,11 +1,12 @@
 {
     "name": "sentry-hub-library",
-    "version": "1.8.0-sentry",
+    "version": "2.0.0-production",
     "main": "./dist/main.lua",
-    "extension": "./dist/godtier_plus.lua",
+    "productionLayer": "./dist/sentry_production.lua",
+    "fallbackExtension": "./dist/godtier_plus.lua",
     "repository": "https://github.com/theentrophyenchelon-svg/WindUi",
     "author": "theentrophyenchelon-svg",
-    "description": "A delicate premium Roblox Luau UI framework with refined visuals, motion profiles, theme studio tools, loading overlays, performance stats, notifications, and polished components",
+    "description": "Production-grade Roblox Luau UI framework with advanced transitions, avatar viewport, live backgrounds, image backgrounds, key system, console logs, friend stats, theme studio, icons, and performance tooling",
     "license": "MIT",
     "scripts": {
         "dev": "bash build/build.sh dev $INPUT_FILE",
@@ -20,13 +21,16 @@
         "roblox",
         "luau",
         "ui-library",
-        "interface",
-        "themes",
+        "production-ui",
+        "transitions",
         "animations",
+        "themes",
+        "live-background",
+        "viewport",
+        "friend-system",
+        "key-system",
         "performance",
-        "sentry",
-        "hub",
-        "library"
+        "sentry"
     ],
     "devDependencies": {
         "chokidar-cli": "^3.0.0",
