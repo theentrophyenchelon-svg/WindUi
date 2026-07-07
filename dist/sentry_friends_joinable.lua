@@ -1,13 +1,10 @@
 --[[
 	Sentry Hub Library - Friend Presence Panel
-	Shows online Roblox friends with public join actions only when Roblox exposes join data.
+	Replaces the old friend UI with presence counts, friend rows, and public-session join actions.
 ]]
 
 return function(WindUI, Sentry)
 	if type(WindUI) ~= "table" or type(Sentry) ~= "table" then
-		return Sentry
-	end
-	if Sentry.FriendJoinablePatchInstalled then
 		return Sentry
 	end
 
@@ -21,14 +18,15 @@ return function(WindUI, Sentry)
 	Sentry.Icons.Friends = Sentry.Icons.Friends or "users"
 	Sentry.Icons.Refresh = Sentry.Icons.Refresh or "refresh-cw"
 	Sentry.Icons.Join = Sentry.Icons.Join or "log-in"
-	Sentry.OnlineFriendRows = {}
-	Sentry.OnlineFriendTargets = {}
+	Sentry.Icons.Copy = Sentry.Icons.Copy or "copy"
+	Sentry.OnlineFriendRows = Sentry.OnlineFriendRows or {}
+	Sentry.OnlineFriendTargets = Sentry.OnlineFriendTargets or {}
 
 	local function safe(callback, ...)
 		local ok, result = pcall(callback, ...)
-		if ok then return result end
+		if ok then return true, result end
 		warn("[Sentry Friends]", result)
-		return nil
+		return false, result
 	end
 
 	local function notify(kind, title, content, duration)
@@ -37,9 +35,9 @@ return function(WindUI, Sentry)
 		if kind == "Warning" then method = WindUI.NotifyWarning end
 		if kind == "Error" then method = WindUI.NotifyError end
 		if method then
-			return safe(function() return method(WindUI, title, content, duration or 3) end)
+			return pcall(function() method(WindUI, title, content, duration or 3) end)
 		end
-		return safe(function() return WindUI:Notify({ Title = title, Content = content, Duration = duration or 3 }) end)
+		return pcall(function() WindUI:Notify({ Title = title, Content = content, Duration = duration or 3 }) end)
 	end
 
 	local function setParagraph(paragraph, title, desc)
@@ -52,21 +50,68 @@ return function(WindUI, Sentry)
 		end
 	end
 
+	function Sentry:GetTotalFriendCountAndServerFriends()
+		local result = { Total = 0, InServer = {}, Error = nil }
+		if not LocalPlayer then
+			result.Error = "No local player"
+			return result
+		end
+
+		local friendIds = {}
+		local ok, pages = pcall(function()
+			return Players:GetFriendsAsync(LocalPlayer.UserId)
+		end)
+
+		if not ok or not pages then
+			result.Error = tostring(pages)
+		else
+			local guard = 0
+			while true do
+				guard += 1
+				local page = {}
+				pcall(function() page = pages:GetCurrentPage() end)
+				for _, friend in ipairs(page) do
+					local id = tonumber(friend.Id or friend.UserId)
+					if id then friendIds[id] = true end
+					result.Total += 1
+				end
+				if pages.IsFinished or guard >= 20 then break end
+				local advanced = pcall(function() pages:AdvanceToNextPageAsync() end)
+				if not advanced then break end
+			end
+		end
+
+		for _, player in ipairs(Players:GetPlayers()) do
+			if player ~= LocalPlayer and friendIds[player.UserId] then
+				table.insert(result.InServer, {
+					UserId = player.UserId,
+					Username = player.Name,
+					DisplayName = player.DisplayName,
+				})
+			end
+		end
+
+		return result
+	end
+
 	function Sentry:GetOnlineFriendPresence()
 		if not LocalPlayer then
 			return {}, "No local player"
 		end
+
 		local ok, friends = pcall(function()
 			return LocalPlayer:GetFriendsOnline(200)
 		end)
 		if not ok then
 			return {}, tostring(friends)
 		end
+
 		local result = {}
 		for _, friend in ipairs(friends or {}) do
 			local placeId = tonumber(friend.PlaceId or friend.PlaceID)
 			local jobId = friend.GameId or friend.GameID or friend.JobId or friend.JobID
 			if jobId == "" then jobId = nil end
+
 			table.insert(result, {
 				UserId = tonumber(friend.VisitorId or friend.UserId or friend.Id),
 				Username = tostring(friend.UserName or friend.Username or friend.Name or "Unknown"),
@@ -76,31 +121,56 @@ return function(WindUI, Sentry)
 				JobId = jobId,
 			})
 		end
+
 		return result, nil
 	end
 
 	function Sentry:FriendRowText(friend, index)
 		if not friend then
-			return "Slot " .. index .. " waiting for Roblox online presence data."
+			return "Waiting for Roblox online presence data for slot " .. index .. "."
 		end
-		local joinable = friend.PlaceId ~= nil
-		return "Username: @" .. friend.Username .. "\nDisplay Name: " .. friend.DisplayName .. "\nLocation: " .. friend.LastLocation .. "\nPlace ID: " .. tostring(friend.PlaceId or "Hidden") .. "\nServer Job ID: " .. tostring(friend.JobId or "Hidden") .. "\nJoin Available: " .. tostring(joinable)
+
+		local joinStatus = friend.PlaceId and "Available" or "Unavailable"
+		return "Username: @" .. friend.Username
+			.. "\nDisplay Name: " .. friend.DisplayName
+			.. "\nLocation: " .. friend.LastLocation
+			.. "\nPlace ID: " .. tostring(friend.PlaceId or "Not exposed")
+			.. "\nServer Job ID: " .. tostring(friend.JobId or "Not exposed")
+			.. "\nJoin: " .. joinStatus
+	end
+
+	function Sentry:FriendSummaryText()
+		local totals = self:GetTotalFriendCountAndServerFriends()
+		local online, onlineErr = self:GetOnlineFriendPresence()
+		self.OnlineFriendTargets = online
+
+		local publicTargets = 0
+		for _, friend in ipairs(online) do
+			if friend.PlaceId then publicTargets += 1 end
+		end
+
+		local lines = {
+			"Total Friends: " .. totals.Total,
+			"Friends in Server: " .. #totals.InServer,
+			"Presence Online Count: " .. #online,
+			"Public Join Targets: " .. publicTargets,
+		}
+
+		if totals.Error then table.insert(lines, "Friend Count Diagnostics: " .. totals.Error) end
+		if onlineErr then table.insert(lines, "Presence Diagnostics: " .. onlineErr) end
+
+		return table.concat(lines, "\n")
 	end
 
 	function Sentry:RefreshFriendPresencePanel()
-		local online, err = self:GetOnlineFriendPresence()
-		self.OnlineFriendTargets = online
-		local joinable = 0
-		for _, friend in ipairs(online) do
-			if friend.PlaceId then joinable += 1 end
-		end
-		local summary = "Presence Online Count: " .. #online .. "\nPublic Join Targets: " .. joinable
-		if err then summary ..= "\nDiagnostics: " .. err end
-		setParagraph(self.Refs.Friends, "Online Friend Presence", summary)
-		for i = 1, 12 do
-			local friend = online[i]
+		local summary = self:FriendSummaryText()
+		setParagraph(self.Refs.Friends, "Friend System", summary)
+
+		for i = 1, 15 do
+			local friend = self.OnlineFriendTargets[i]
+			local row = self.OnlineFriendRows[i]
 			local title = friend and (friend.DisplayName .. "  @" .. friend.Username) or ("Online Friend Slot " .. i)
-			setParagraph(self.OnlineFriendRows[i], title, self:FriendRowText(friend, i))
+			setParagraph(row, title, self:FriendRowText(friend, i))
 		end
 	end
 
@@ -110,37 +180,70 @@ return function(WindUI, Sentry)
 			notify("Warning", "No Friend", "No online friend is assigned to this slot yet.", 3)
 			return
 		end
+
 		if not friend.PlaceId then
-			notify("Warning", "Join Unavailable", "Roblox did not expose a public place for " .. friend.DisplayName .. ".", 4)
+			notify("Warning", "Join Unavailable", "Roblox did not expose a public joinable place for " .. friend.DisplayName .. ".", 4)
 			return
 		end
+
+		notify("Info", "Joining Friend", "Attempting to join " .. friend.DisplayName .. "...", 3)
+
+		local ok, err
 		if friend.JobId then
-			safe(function() TeleportService:TeleportToPlaceInstance(friend.PlaceId, friend.JobId, LocalPlayer) end)
+			ok, err = safe(function()
+				local options = Instance.new("TeleportOptions")
+				options.ServerInstanceId = tostring(friend.JobId)
+				TeleportService:TeleportAsync(friend.PlaceId, { LocalPlayer }, options)
+			end)
+			if not ok then
+				ok, err = safe(function()
+					TeleportService:TeleportToPlaceInstance(friend.PlaceId, tostring(friend.JobId), LocalPlayer)
+				end)
+			end
 		else
-			safe(function() TeleportService:Teleport(friend.PlaceId, LocalPlayer) end)
+			ok, err = safe(function()
+				TeleportService:TeleportAsync(friend.PlaceId, { LocalPlayer })
+			end)
+			if not ok then
+				ok, err = safe(function()
+					TeleportService:Teleport(friend.PlaceId, LocalPlayer)
+				end)
+			end
+		end
+
+		if not ok then
+			notify("Error", "Join Failed", tostring(err or "Teleport failed. The session may be private, full, restricted, or unavailable."), 5)
 		end
 	end
 
 	function Sentry:BuildFriends(tab)
 		if not tab then return end
-		safe(function() tab:Section({ Title = "Friend System", TextSize = 22, FontWeight = Enum.FontWeight.SemiBold }) end)
-		safe(function()
+
+		pcall(function()
+			tab:Section({ Title = "Friend System", TextSize = 22, FontWeight = Enum.FontWeight.SemiBold })
+		end)
+
+		pcall(function()
 			self.Refs.Friends = tab:Paragraph({
-				Title = "Online Friend Presence",
-				Desc = "Loading Roblox online presence...",
+				Title = "Friend System",
+				Desc = self:FriendSummaryText(),
 				Image = self.Icons.Friends,
 				Buttons = {
 					{ Title = "Refresh", Icon = self.Icons.Refresh, Callback = function() self:RefreshFriendPresencePanel() end },
 				},
 			})
 		end)
-		safe(function() tab:Section({ Title = "Online Friends", TextSize = 22, FontWeight = Enum.FontWeight.SemiBold }) end)
+
+		pcall(function()
+			tab:Section({ Title = "Online Friends", TextSize = 22, FontWeight = Enum.FontWeight.SemiBold })
+		end)
+
 		self.OnlineFriendRows = {}
-		for i = 1, 12 do
-			safe(function()
+		for i = 1, 15 do
+			pcall(function()
 				self.OnlineFriendRows[i] = tab:Paragraph({
 					Title = "Online Friend Slot " .. i,
-					Desc = self:FriendRowText(nil, i),
+					Desc = self:FriendRowText(self.OnlineFriendTargets[i], i),
 					Image = self.Icons.Friends,
 					Buttons = {
 						{ Title = "Join", Icon = self.Icons.Join, Callback = function() self:JoinOnlineFriend(i) end },
@@ -148,7 +251,17 @@ return function(WindUI, Sentry)
 				})
 			end)
 		end
+
 		self:RefreshFriendPresencePanel()
+	end
+
+	-- Critical: override the old production refresh path so it cannot restore Online: 0 / None detected.
+	function Sentry:RefreshFriendPanels()
+		self:RefreshFriendPresencePanel()
+	end
+
+	function Sentry:FriendText()
+		return self:FriendSummaryText()
 	end
 
 	return Sentry
