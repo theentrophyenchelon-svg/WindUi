@@ -1,19 +1,19 @@
 <div align="center">
 
-<img src="docs/banner-new.webp" alt="WindUI GodTier Banner" width="100%" />
+<img src="docs/banner-new.webp" alt="Sentry Hub Library Banner" width="100%" />
 
-# WindUI GodTier
+# Sentry Hub Library
 
-### A premium Roblox Luau UI library for clean, cinematic, modern interfaces.
+### A delicate premium Roblox Luau UI framework for cinematic hubs, polished menus, and refined in-game interfaces.
 
-WindUI GodTier is built for developers who want their Roblox menus, script hubs, tools, dashboards, admin panels, and in-game interfaces to feel polished from the first frame. It focuses on premium visuals, smooth motion, theme flexibility, readable structure, and fast implementation.
+Sentry Hub Library is built for developers who want their Roblox UI to feel controlled, elegant, smooth, and production-ready. It combines a modern component system with premium motion, theme presets, acrylic visuals, loading overlays, performance feedback, notification helpers, and a clean developer workflow.
 
 <br />
 
 [![Roblox](https://img.shields.io/badge/Platform-Roblox-00A2FF?style=for-the-badge&logo=roblox&logoColor=white)](https://www.roblox.com/)
 [![Luau](https://img.shields.io/badge/Language-Luau-2C74B3?style=for-the-badge)](https://luau.org/)
-[![Version](https://img.shields.io/badge/Version-1.7.0--godtier-8A2BE2?style=for-the-badge)](#version)
-[![Status](https://img.shields.io/badge/Status-Premium%20Build-30FF6A?style=for-the-badge)](#about-windui-godtier)
+[![Version](https://img.shields.io/badge/Version-1.8.0--sentry-30FF6A?style=for-the-badge)](#version)
+[![Status](https://img.shields.io/badge/Status-Premium%20Framework-8A2BE2?style=for-the-badge)](#about-sentry-hub-library)
 [![License](https://img.shields.io/github/license/theentrophyenchelon-svg/WindUi?style=for-the-badge)](LICENSE)
 
 [![Stars](https://img.shields.io/github/stars/theentrophyenchelon-svg/WindUi?style=social)](https://github.com/theentrophyenchelon-svg/WindUi/stargazers)
@@ -24,26 +24,27 @@ WindUI GodTier is built for developers who want their Roblox menus, script hubs,
 
 ---
 
-## About WindUI GodTier
+## About Sentry Hub Library
 
-WindUI GodTier is a high-end Roblox UI framework built to make interfaces feel professional, responsive, and premium without forcing developers to build every component from scratch. It provides a complete interface layer with windows, tabs, sections, input controls, key systems, notifications, popups, acrylic visuals, theme presets, and polished interaction feedback.
+Sentry Hub Library is a refined Roblox UI framework designed for clean, deliberate, high-quality interface design. It is made for developers building script hubs, admin panels, dashboards, game menus, settings panels, ability menus, and premium in-game tools that need to feel smooth instead of rushed.
 
-This build is positioned as a top-tier Roblox UI library because it focuses on the details that usually separate average interfaces from elite ones: hierarchy, spacing, animation feel, visual contrast, hover states, responsive controls, and clean developer ergonomics.
+The public-facing brand is **Sentry Hub Library**. The internal runtime still exposes the `WindUI` object for compatibility, so existing scripts keep working while the visible UI, documentation, package metadata, showcase loader, loading overlay, and premium extension layer present under the Sentry identity.
 
-### What makes it stand out
+### Why it feels premium
 
-- **Premium visual design** — modern radius, refined borders, acrylic styling, shadows, glow options, and clean layout hierarchy.
-- **Smooth interaction feel** — hover states, press states, ripple feedback, window motion, and configurable animation speed.
-- **Powerful theme system** — premium presets plus custom theme creation for unique branding.
-- **Complete component set** — buttons, toggles, sliders, dropdowns, inputs, keybinds, colorpickers, media elements, layout tools, notifications, dialogs, and more.
-- **Roblox-first workflow** — built for Luau, Roblox Studio, Rojo-style project structure, and fast loadstring distribution.
-- **Clean release structure** — source files in `src/`, compiled output in `dist/`, examples in root files, and visual assets in `docs/`.
+- **Delicate visual style** — clean radius, soft contrast, acrylic surfaces, refined strokes, and balanced spacing.
+- **Controlled motion** — cinematic, balanced, snappy, and reduced-motion profiles.
+- **Powerful theme studio** — Aurora, Obsidian, Cyber, Royal, Dark, and Light presets.
+- **Complete element suite** — windows, tabs, sections, buttons, toggles, sliders, dropdowns, inputs, keybinds, colorpickers, notifications, and more.
+- **Performance tools** — optional FPS and memory overlay for quick UI performance checks.
+- **Premium overlays** — animated loading overlay with progress feedback and soft presentation.
+- **Developer-friendly API** — additive Sentry helpers layered on top of the compatible base runtime.
 
 ---
 
 ## Live Repository Stats
 
-> GitHub badge services may not show live values while this repository is private. They will update normally when the repository is public.
+> Badge services may not show live values while the repository is private. They update normally when the repository is public.
 
 | Metric | Badge |
 |---|---|
@@ -53,54 +54,58 @@ This build is positioned as a top-tier Roblox UI library because it focuses on t
 | Top Language | ![Top Language](https://img.shields.io/github/languages/top/theentrophyenchelon-svg/WindUi?style=flat-square) |
 | Languages | ![Languages](https://img.shields.io/github/languages/count/theentrophyenchelon-svg/WindUi?style=flat-square) |
 | Open Issues | ![Issues](https://img.shields.io/github/issues/theentrophyenchelon-svg/WindUi?style=flat-square) |
-| Pull Requests | ![Pull Requests](https://img.shields.io/github/issues-pr/theentrophyenchelon-svg/WindUi?style=flat-square) |
-| Contributors | ![Contributors](https://img.shields.io/github/contributors/theentrophyenchelon-svg/WindUi?style=flat-square) |
 
 ---
 
-## Installation
+## Quick Start
 
-### Load the packaged build
+Use the complete showcase loader:
 
 ```luau
-local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/dist/main.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/main_example.lua"))()
 ```
 
-### Minimal setup
+Manual install:
 
 ```luau
-local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/dist/main.lua"))()
+local repo = "https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/"
 
-WindUI:UsePreset("GodTier")
-WindUI:SetAnimationSpeed(1)
-WindUI:SetReducedMotion(false)
-WindUI:SetUIScale(1)
+local WindUI = loadstring(game:HttpGet(repo .. "dist/main.lua"))()
+local InstallSentryHub = loadstring(game:HttpGet(repo .. "dist/godtier_plus.lua"))()
 
-local window = WindUI:CreateWindow({
-	Title = "WindUI GodTier",
-	Icon = "sparkles",
-	Author = "Premium Roblox UI Library",
+local SentryHub = InstallSentryHub(WindUI)
+SentryHub:BuildShowcase()
+```
+
+---
+
+## Minimal Sentry Window
+
+```luau
+local repo = "https://raw.githubusercontent.com/theentrophyenchelon-svg/WindUi/main/"
+
+local WindUI = loadstring(game:HttpGet(repo .. "dist/main.lua"))()
+local InstallSentryHub = loadstring(game:HttpGet(repo .. "dist/godtier_plus.lua"))()
+InstallSentryHub(WindUI)
+
+local window = WindUI:CreateSentryWindow({
+	Title = "Sentry Hub Library",
+	Icon = "shield-check",
+	Author = "Premium Roblox UI Framework",
 	Theme = "Aurora",
-	Size = UDim2.fromOffset(620, 500),
-	Acrylic = true,
-	Premium = true,
-	Glow = true,
 })
 
-local mainTab = window:Tab({
+local main = window:Tab({
 	Title = "Main",
-	Icon = "house",
+	Icon = "home",
+	Border = true,
 })
 
-mainTab:Button({
-	Title = "Launch Feature",
-	Desc = "Runs a premium WindUI interaction.",
+main:Button({
+	Title = "Launch",
+	Desc = "Runs a polished Sentry interaction.",
 	Callback = function()
-		WindUI:Notify({
-			Title = "WindUI GodTier",
-			Content = "Feature launched successfully.",
-			Duration = 3,
-		})
+		WindUI:NotifySuccess("Sentry Hub Library", "Interaction launched.")
 	end,
 })
 ```
@@ -113,122 +118,75 @@ mainTab:Button({
 |---|---|
 | Window System | Premium shell, tabs, sections, topbar buttons, open button, acrylic, glow, radius controls |
 | Elements | Button, Toggle, Slider, Dropdown, Input, Keybind, Colorpicker, Paragraph, Divider, Image, Video, Viewport |
-| Layout | Groups, HStack, VStack, Space, Sections, scroll controls |
-| Feedback | Notifications, popups, dialogs, ripple interactions, hover/press micro-interactions |
-| Themes | Presets, fallback themes, custom theme registration, premium visual styles |
-| Motion | Animation speed control, reduced-motion mode, premium pulse behavior |
-| Build | `dist/main.lua`, DarkLua tooling, package metadata, Rojo project config |
-| Examples | Loadstring example, Studio example, advanced demo window |
+| Sentry Extension | Showcase builder, safer window defaults, motion profiles, loading overlay, performance overlay |
+| Feedback | Notifications, popups, dialogs, hover states, press states, ripple-style interactions |
+| Themes | Aurora, Obsidian, Cyber, Royal, Dark, Light, and custom theme support |
+| Performance | FPS and memory overlay, reduced-motion mode, UI scale control |
+| Build | `dist/main.lua`, `dist/godtier_plus.lua`, build tooling, package metadata, Rojo project config |
+| Examples | Hosted showcase loader, Studio/local examples, advanced demo window |
 
 ---
 
-## GodTier APIs
+## Sentry APIs
 
 | API | Purpose |
 |---|---|
-| `WindUI:SetAnimationSpeed(speed)` | Controls global animation pacing. |
-| `WindUI:SetReducedMotion(enabled)` | Reduces motion-heavy visual effects for accessibility. |
-| `WindUI:SetUIScale(scale)` | Applies global UI scaling. |
-| `WindUI:CreateTheme(name, themeData)` | Registers a custom theme. |
-| `WindUI:UsePreset(name)` | Applies a premium preset such as `GodTier`. |
-| `Window:SetRadius(radius)` | Adjusts window corner radius. |
-| `Window:SetPremium(enabled)` | Toggles premium window treatment. |
-| `Window:Pulse()` | Plays a premium pulse interaction. |
+| `WindUI:CreateSentryShowcase()` | Builds the full Sentry showcase UI. |
+| `WindUI:CreateSentryWindow(config)` | Creates a Sentry-branded premium window. |
+| `WindUI:SetSentryMotionProfile(profile)` | Applies Cinematic, Balanced, Snappy, or Reduced motion. |
+| `WindUI:CreateSentryLoadingOverlay(config)` | Shows the animated loading card overlay. |
+| `WindUI:CreateSentryPerformanceOverlay(config)` | Shows FPS and memory stats. |
+| `WindUI:NotifyInfo(title, content, duration)` | Sends an info notification. |
+| `WindUI:NotifySuccess(title, content, duration)` | Sends a success notification. |
+| `WindUI:NotifyWarning(title, content, duration)` | Sends a warning notification. |
+| `WindUI:NotifyError(title, content, duration)` | Sends an error notification. |
 
----
-
-## Premium Theme Presets
-
-| Theme | Direction |
-|---|---|
-| `Aurora` | Bright, colorful, magical, clean, premium energy |
-| `Obsidian` | Dark, glassy, sharp, high-contrast interface styling |
-| `Cyber` | Futuristic neon polish with high-tech presentation |
-| `Royal` | Elegant, luxury-inspired styling with elevated contrast |
+Previous GodTier Plus names remain as aliases for compatibility.
 
 ---
 
 ## Project Structure
 
 ```text
-WindUi/
+Sentry Hub Library/
 ├── .github/workflows/       # Build, pull request, and release automation
 ├── build/                   # DarkLua and packaging scripts
-├── dist/                    # Compiled distributable output
-│   └── main.lua             # Primary loadstring target
+├── dist/                    # Public runtime output
+│   ├── main.lua             # Base UI runtime
+│   └── godtier_plus.lua     # Sentry premium extension layer
 ├── docs/                    # Visual assets, banners, previews, and branding
 ├── src/                     # Main Luau source
-│   ├── components/          # Windows, popups, search, notifications, UI internals
-│   ├── config/              # Configuration modules
-│   ├── elements/            # Public UI element modules
-│   ├── modules/             # Creator, icons, localization, syntax highlighter
-│   ├── server/              # Server-side helper integrations
-│   ├── themes/              # Theme engine and fallbacks
-│   └── utils/               # Acrylic, services, and shared utilities
 ├── tests/                   # Stress and rendering examples
 ├── main.lua                 # Studio/local example
 ├── main.client.lua          # Advanced client demo
-├── main_example.lua         # Hosted example loader
+├── main_example.lua         # Hosted Sentry showcase loader
 ├── package.json             # Project metadata and scripts
-└── GODTIER_UPGRADE.md       # Premium upgrade notes
+└── GODTIER_UPGRADE.md       # Upgrade/API notes
 ```
 
 ---
 
 ## Development
 
-Install dependencies:
-
 ```bash
 npm install
-```
-
-Build the distributable file:
-
-```bash
 npm run build
-```
-
-Run development build mode:
-
-```bash
 npm run dev
 ```
-
-Run live build mode:
-
-```bash
-npm run live-build
-```
-
----
-
-## Roadmap
-
-- [x] Premium README and repository presentation
-- [x] Extracted source and distribution files
-- [x] GodTier build notes
-- [x] Cleaned duplicate uploaded archive
-- [x] Cleaned duplicate example loader
-- [ ] Public documentation pass
-- [ ] Full visual preview gallery
-- [ ] API reference examples for every component
-- [ ] Demo Roblox place using the full GodTier theme stack
-- [ ] Automated release tagging
 
 ---
 
 ## Version
 
 ```text
-1.7.0-godtier
+1.8.0-sentry
 ```
 
 ---
 
 ## Credits
 
-WindUI includes or references icon inspiration and assets from high-quality icon systems:
+Sentry Hub Library is built on a compatible WindUI runtime foundation and includes or references high-quality icon systems:
 
 - [Lucide Icons](https://github.com/lucide-icons/lucide)
 - [Craft Icons](https://www.figma.com/community/file/1415718327120418204)
@@ -236,20 +194,14 @@ WindUI includes or references icon inspiration and assets from high-quality icon
 - [Solar Icons](https://icones.js.org/collection/solar)
 - [SF Symbols](https://sf-symbols-one.vercel.app/)
 
-Original WindUI ecosystem references:
-
-- [Documentation](https://footagesus.github.io/treehub-web/docs/windui)
-- [Installation](https://footagesus.github.io/WindUI-Docs/docs/installation)
-- [Discord Server](https://discord.gg/ftgs-development-hub-1300692552005189632)
-
 ---
 
 <div align="center">
 
-## WindUI GodTier
+## Sentry Hub Library
 
-### Premium Roblox UI. Clean API. Elite presentation.
+### Delicate design. Premium motion. Protective interface energy.
 
-Built for interfaces that deserve to look finished.
+Built for Roblox interfaces that deserve to feel finished.
 
 </div>
