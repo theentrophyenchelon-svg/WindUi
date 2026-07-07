@@ -35,6 +35,21 @@ if SentryHub then
 		local installCleanFix = loadstring(game:HttpGet(REPO .. "dist/sentry_clean_fix.lua"))()
 		installCleanFix(WindUI, SentryHub)
 	end)
+
+	pcall(function()
+		local installThemeRestore = loadstring(game:HttpGet(REPO .. "dist/sentry_theme_restore.lua"))()
+		installThemeRestore(WindUI, SentryHub)
+	end)
+
+	pcall(function()
+		local installSettings = loadstring(game:HttpGet(REPO .. "dist/sentry_settings_simple.lua"))()
+		installSettings(WindUI, SentryHub)
+	end)
+
+	pcall(function()
+		local installActions = loadstring(game:HttpGet(REPO .. "dist/sentry_actions_tab.lua"))()
+		installActions(WindUI, SentryHub)
+	end)
 end
 
 if SentryHub and SentryHub.BuildShowcase then
